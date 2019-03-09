@@ -67,8 +67,8 @@ public class MainActivity extends ListActivity {
             mPathList.add(file.getParent());
         }
 
-        //Arrays.sort(filesArray, mComparator);
-        Log.d("roott", filesArray[0].toString());
+        Arrays.sort(filesArray, mComparator);
+        //Log.d("roott", filesArray[0].toString());
         for (File aFilesArray : filesArray) {
             file = aFilesArray;
 
