@@ -1,11 +1,13 @@
 package tk.alltrue.filemanager;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -33,17 +35,23 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         mPathTextView = (TextView) findViewById(R.id.textViewPath);
         mComparator = fileComparatorByAlphabetically;
 
-        root = "mnt/sdcard/";//Environment.getExternalStorageDirectory().getPath();
+        root = Environment.getExternalStorageDirectory().getPath();
         Log.d("roottt", root);
         getDir(root);
     }
 
     private void getDir(String dirPath) {
         mCurrentPath = dirPath;
+
+        File sdcard_files_and_folders[] = new File(dirPath).listFiles();
+        for (File fileOrFolder: sdcard_files_and_folders) {
+            // do any thing that you want, add them to list or...
+            Log.i("FILE", fileOrFolder.toString());
+        }
 
         mPathTextView.setText("Path: " + dirPath);
         List<String>
